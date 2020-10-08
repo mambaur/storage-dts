@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.OutputStreamWriter;
 
 import static android.provider.Telephony.Mms.Part.FILENAME;
 
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnCreate = (Button) findViewById(R.id.btnCreate);
         btnRead = (Button) findViewById(R.id.btnRead);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
-        btnDelete = (Button) findViewById(R.id.btnUpdate);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
         txtResult = (TextView) findViewById(R.id.txtResult);
 
         btnCreate.setOnClickListener(this);
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void createFile(){
-        String fileValue = "Nama Saya Mambaur.txt";
+        String fileValue = "Nama Saya Mambaur ";
         File file = new File(getFilesDir(), FILENAME);
 
         FileOutputStream outputStream = null;
@@ -66,22 +69,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }catch (Exception e){
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
-
+        readFile();
     }
 
     void updateFile(){
-        txtResult.setText(getFilesDir().toString());
-
+        File file = new File(getFilesDir(), FILENAME);
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(file, true);
+            OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream);
+            streamWriter.write("Nama saya Roziq (Update) ");
+            streamWriter.close();
+            outputStream.close();
+        }catch (Exception e){
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        readFile();
     }
 
     void readFile(){
-
+        File file = new File(getFilesDir(), FILENAME);
+        if (file.exists()){
+            StringBuilder text = new StringBuilder();
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                while (line != null){
+                    text.append(line);
+                    line = reader.readLine();
+                }
+                reader.close();
+            }catch (Exception e){
+                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+            }
+            txtResult.setText(text.toString());
+        }else{
+            txtResult.setText("File belum dibuat");
+        }
     }
 
     void deleteFile(){
         File file = new File(getFilesDir(), FILENAME);
         if (file.exists()){
             file.delete();
+            txtResult.setText("File berhasil dihapus");
         }
     }
 }
