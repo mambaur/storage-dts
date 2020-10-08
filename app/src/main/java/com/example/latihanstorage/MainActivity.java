@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         File file = new File(getFilesDir(), FILENAME);
         FileOutputStream outputStream = null;
         try {
-            outputStream = new FileOutputStream(file, true);
+            outputStream = new FileOutputStream(file, false);
             OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream);
             streamWriter.write("Nama saya Roziq (Update) ");
             streamWriter.close();
