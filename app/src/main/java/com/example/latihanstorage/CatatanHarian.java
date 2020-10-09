@@ -99,7 +99,6 @@ public class CatatanHarian extends AppCompatActivity {
         }
     }
 
-
 //    https://android-arsenal.com/search?q=alert
 
     void konfirmasiDialog(final String name){
