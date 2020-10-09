@@ -26,8 +26,7 @@
                 android:id="@+id/eUsername"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/lightGrey"
-                android:hint="Input username..."/>
+                android:background="@color/lightGrey"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -39,8 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/lightGrey"
-                android:inputType="textPassword"
-                android:hint="Input password..."/>
+                android:inputType="textPassword"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -51,8 +49,7 @@
                 android:id="@+id/eEmail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/lightGrey"
-                android:hint="Input email..."/>
+                android:background="@color/lightGrey"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,8 +60,7 @@
                 android:id="@+id/eNama"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/lightGrey"
-                android:hint="Input nama lengkap..."/>
+                android:background="@color/lightGrey"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,8 +71,7 @@
                 android:id="@+id/eAsalSekolah"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/lightGrey"
-                android:hint="Asal sekolah..."/>
+                android:background="@color/lightGrey"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,8 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:gravity="top|left"
-                android:background="@color/lightGrey"
-                android:hint="Input alamat..."/>
+                android:background="@color/lightGrey"/>
 
             <Button
                 android:id="@+id/btnRegister"

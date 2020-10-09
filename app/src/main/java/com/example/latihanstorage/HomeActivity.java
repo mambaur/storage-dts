@@ -22,7 +22,7 @@ import java.nio.Buffer;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnSimpan;
     EditText eUsername, ePassword, eEmail, eName, eAsalSekolah, eAlamat;
-    public static final String FILENAME = "login";
+    public static final String FILENAMELOGIN = "login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         eUsername = (EditText) findViewById(R.id.eUsername);
         ePassword = (EditText) findViewById(R.id.ePassword);
         eEmail = (EditText) findViewById(R.id.eEmail);
-        eName = (EditText) findViewById(R.id.eName);
+        eName = (EditText) findViewById(R.id.eNama);
         eAsalSekolah = (EditText) findViewById(R.id.eAsalSekolah);
         eAlamat = (EditText) findViewById(R.id.eAlamat);
 
@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void bacaFileLogin(){
-        File file = new File(getFilesDir(), FILENAME);
+        File file = new File(getFilesDir().toString()+"/auth", FILENAMELOGIN);
         if (file.exists()){
             StringBuilder text = new StringBuilder();
             try {
@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void bacaDataUser(String filename){
-        File file = new File(getFilesDir(), filename);
+        File file = new File(getFilesDir().toString()+"/auth", filename);
         if (file.exists()){
             StringBuilder text = new StringBuilder();
             try {
@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void logout(){
-        File file = new File(getFilesDir(), FILENAME);
+        File file = new File(getFilesDir().toString()+"/auth", FILENAMELOGIN);
         if (file.exists()){
             file.delete();
         }
@@ -143,6 +143,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnSimpan:
+                break;
+            case R.id.crud:
+                Intent intent_main = new Intent(this, MainActivity.class);
+                startActivity(intent_main);
                 break;
         }
     }

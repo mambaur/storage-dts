@@ -40,9 +40,6 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         eFileName = (EditText) findViewById(R.id.eName);
         eNote = (EditText) findViewById(R.id.eNote);
         btnSave = (Button) findViewById(R.id.btnSave);
@@ -93,7 +90,9 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     void bacaFile(){
-        File file = new File(getFilesDir(), eFileName.getText().toString());
+        String path = getFilesDir().toString()+"/catatan";
+//        String path = Environment.getExternalStorageDirectory().toString();
+        File file = new File(path, eFileName.getText().toString());
         if (file.exists()){
             StringBuilder stringBuilder = new StringBuilder();
             try {
@@ -105,7 +104,8 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 br.close();
             }catch (Exception e){
-                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
             }
             tempCatatan = stringBuilder.toString();
             eNote.setText(tempCatatan);
@@ -113,11 +113,12 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     void buatDanUbah(){
-        String state = Environment.getExternalStorageState();
-        if (!Environment.MEDIA_MOUNTED.equals(state)){
-            return;
-        }
-        String path = Environment.getExternalStorageDirectory().toString();
+//        String state = Environment.getExternalStorageState();
+//        if (!Environment.MEDIA_MOUNTED.equals(state)){
+//            return;
+//        }
+//        String path = Environment.getExternalStorageDirectory().toString();
+        String path = getFilesDir().toString()+"/catatan";
         File parent = new File(path);
         if(parent.exists()){
             File file = new File(path, eFileName.getText().toString());
@@ -126,7 +127,7 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
                 file.createNewFile();
                 outputStream = new FileOutputStream(file);
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-                outputStreamWriter.append(eNote.getText());
+                outputStreamWriter.append(eNote.getText().toString());
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
                 outputStream.flush();
@@ -201,6 +202,10 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
         switch (item.getItemId()){
             case R.id.home:
                 onBackPressed();
+                break;
+            case R.id.crud:
+                Intent intent_main = new Intent(this, MainActivity.class);
+                startActivity(intent_main);
                 break;
     }
         return super.onOptionsItemSelected(item);

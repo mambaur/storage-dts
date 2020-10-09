@@ -4,6 +4,9 @@
         android:id="@+id/action_tambah"
         android:title="Tambah"/>
     <item
-        android:id="@+id/tes_menu"
-        android:title="Tes"/>
+        android:id="@+id/action_refresh"
+        android:title="Refresh"/>
+    <item
+        android:id="@+id/crud"
+        android:title="CRUD"/>
 </menu>

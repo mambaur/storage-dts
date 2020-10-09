@@ -2,6 +2,7 @@ package com.example.latihanstorage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,7 @@ import java.io.OutputStreamWriter;
 import static android.provider.Telephony.Mms.Part.FILENAME;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnCreate, btnRead, btnUpdate, btnDelete;
+    Button btnCreate, btnRead, btnUpdate, btnDelete, btnLogin;
     TextView txtResult;
 
     @Override
@@ -30,11 +31,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
         btnDelete = (Button) findViewById(R.id.btnDelete);
         txtResult = (TextView) findViewById(R.id.txtResult);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
 
         btnCreate.setOnClickListener(this);
         btnRead.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
     }
 
     @Override
@@ -52,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnDelete:
                 deleteFile();
                 break;
+            case R.id.btnLogin:
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
         }
     }
 

@@ -19,11 +19,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,8 +36,9 @@ public class CatatanHarian extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catatan_harian);
 
-        listView = (ListView) findViewById(R.id.listView);
         getSupportActionBar().setTitle("Aplikasi Catatan Proyek 1");
+
+        listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,7 +113,9 @@ public class CatatanHarian extends AppCompatActivity {
     }
 
     void hapusFile(String filename){
-        File file = new File(getFilesDir(), filename);
+        String path = getFilesDir().toString()+"/catatan";
+//        String path = Environment.getExternalStorageDirectory().toString();
+        File file = new File(path, filename);
         if(file.exists()){
             file.delete();
         }
@@ -124,10 +124,10 @@ public class CatatanHarian extends AppCompatActivity {
 
     void getListData(){
 //        String path = Environment.getExternalStorageDirectory().toString();
-//        String path = getFilesDir().toString();
-//        Toast.makeText(this, "Get List Data, path= "+path, Toast.LENGTH_SHORT).show();
-        File file = new File(getFilesDir().toString());
+        String path = getFilesDir().toString()+"/catatan";
+        File file = new File(path);
         if(file.exists()){
+//            file.delete();
             File[] files = file.listFiles();
             String[] fileNames = new String[files.length];
             String[] dateCreated = new String[files.length];
@@ -143,7 +143,9 @@ public class CatatanHarian extends AppCompatActivity {
                 itemList.put("date", dateCreated[i]);
                 arrayList.add(itemList);
             }
-            SimpleAdapter simpleAdapter = new SimpleAdapter(this, arrayList, android.R.layout.simple_list_item_2, new String[] {"name, date"}, new int[] {android.R.id.text1, android.R.id.text2});
+
+            System.out.println("ini adalah array list "+ arrayList);
+            SimpleAdapter simpleAdapter = new SimpleAdapter(this, arrayList, android.R.layout.simple_list_item_2, new String[] {"name", "date"}, new int[] {android.R.id.text1, android.R.id.text2});
             listView.setAdapter(simpleAdapter);
             simpleAdapter.notifyDataSetChanged();
         }
@@ -159,10 +161,15 @@ public class CatatanHarian extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_tambah:
-                Intent intent = new Intent(this, InsertActivity.class);
-                startActivity(intent);
+                Intent intent_insert = new Intent(this, InsertActivity.class);
+                startActivity(intent_insert);
                 break;
-            case R.id.tes_menu:
+            case R.id.action_refresh:
+                getListData();
+                break;
+            case R.id.crud:
+                Intent intent_crud = new Intent(this, MainActivity.class);
+                startActivity(intent_crud);
                 break;
         }
         return super.onOptionsItemSelected(item);

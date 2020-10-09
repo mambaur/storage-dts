@@ -14,11 +14,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 
-import static android.provider.Telephony.Mms.Part.FILENAME;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnLogin, btnRegister;
     EditText eUsername, ePassword;
+    public static final String FILENAMELOGIN = "login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     void login(){
-        File file = new File(getFilesDir(), eUsername.getText().toString());
+        File file = new File(getFilesDir().toString()+"/auth", eUsername.getText().toString());
         if(file.exists()){
             StringBuilder stringBuilder = new StringBuilder();
             try {
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     void simpanFileLogin(){
         String isiFile = eUsername.getText().toString()+";"+ePassword.getText().toString();
-        File file = new File(getFilesDir(), FILENAME);
+        File file = new File(getFilesDir().toString()+"/auth", FILENAMELOGIN);
         FileOutputStream fileOutputStream = null;
         try {
             file.createNewFile();
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
         Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show();
-        onBackPressed();
+//        onBackPressed();
     }
 
     @Override

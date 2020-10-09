@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         eUsername = (EditText) findViewById(R.id.eUsername);
         ePassword = (EditText) findViewById(R.id.ePassword);
         eEmail = (EditText) findViewById(R.id.eEmail);
-        eName = (EditText) findViewById(R.id.eName);
+        eName = (EditText) findViewById(R.id.eNama);
         eAsalSekolah = (EditText) findViewById(R.id.eAsalSekolah);
         eAlamat = (EditText) findViewById(R.id.eAlamat);
 
@@ -51,10 +51,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String isiFile = eUsername.getText().toString()+";"+
                 ePassword.getText().toString()+";"+
                 eEmail.getText().toString()+";"+
-                eName.getText().toString()+":"+
-                eAsalSekolah.getText().toString()+":"+
+                eName.getText().toString()+";"+
+                eAsalSekolah.getText().toString()+";"+
                 eAlamat.getText().toString();
-        File file = new File(getFilesDir(), eUsername.getText().toString());
+
+        String path = getFilesDir().toString()+"/auth";
+        File parent = new File(path);
+        parent.mkdir();
+
+        File file = new File(path, eUsername.getText().toString());
         FileOutputStream fileOutputStream = null;
         try {
             file.createNewFile();
@@ -62,11 +67,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             fileOutputStream.write(isiFile.getBytes());
             fileOutputStream.flush();
             fileOutputStream.close();
+            Toast.makeText(this, "Register berhasil!", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             e.printStackTrace();
         }
-        Toast.makeText(this, "Register berhasil!", Toast.LENGTH_SHORT).show();
-        onBackPressed();
+        System.out.println("ini data isi file "+isiFile);
+//        onBackPressed();
     }
 
     @Override
